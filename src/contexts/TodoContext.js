@@ -24,9 +24,18 @@ export const TodoProvider = ({ children }) => {
     setTodos(clonedTodos);
   };
 
-  const values = { todos, setTodos, addTodo, toggleTodo };
+  const deleteTodo = (id) => {
+    const clonedTodos = [...todos];
 
-  return <TodoContext.Provider value={values}>{children} </TodoContext.Provider>;
+    const itemIndex = clonedTodos.findIndex((todo) => todo.id === id);
+    clonedTodos.splice(itemIndex, 1);
+
+    setTodos(clonedTodos);
+  };
+
+  const values = { todos, setTodos, addTodo, toggleTodo, deleteTodo };
+
+  return <TodoContext.Provider value={values}> {children} </TodoContext.Provider>;
 };
 
 export const useTodo = () => {
